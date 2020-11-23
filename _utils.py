@@ -1,5 +1,7 @@
 import cv2
-import numpy as np
+
+MAX_PROPOSED_OBJECTS = 1
+APRROX_POLY_DP = 0.02
 
 
 def read_img(img_name):
@@ -7,7 +9,7 @@ def read_img(img_name):
     return img
 
 
-def show_img(img):
-    cv2.imshow('image', img)
+def show_img(img_name, img):
+    cv2.imshow(img_name, img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
