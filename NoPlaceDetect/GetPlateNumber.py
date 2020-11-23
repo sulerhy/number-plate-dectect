@@ -1,12 +1,9 @@
-# Main.py
+# GetPlateNumber.py
 
 import cv2
 import numpy as np
 import os
 
-import NoPlaceDetect.DetectChars
-import NoPlaceDetect.DetectPlates
-import NoPlaceDetect.PossiblePlate
 
 # module level variables ##########################################################################
 from NoPlaceDetect import DetectChars, DetectPlates
@@ -20,22 +17,12 @@ SCALAR_RED = (0.0, 0.0, 255.0)
 showSteps = False
 
 
-###################################################################################################
-def main():
+def get_number_plate(imgOriginalScene):
     blnKNNTrainingSuccessful = DetectChars.loadKNNDataAndTrainKNN()  # attempt KNN training
 
     if not blnKNNTrainingSuccessful:  # if KNN training was not successful
         print("\nerror: KNN traning was not successful\n")  # show error message
         return  # and exit program
-    # end if
-
-    imgOriginalScene = cv2.imread("LicPlateImages/test5.png")  # open image
-
-    if imgOriginalScene is None:  # if image was not read successfully
-        print("\nerror: image not read from file \n\n")  # print error message to std out
-        os.system("pause")  # pause so user can see error message
-        return  # and exit program
-    # end if
 
     listOfPossiblePlates = DetectPlates.detectPlatesInScene(imgOriginalScene)  # detect plates
 
@@ -45,6 +32,7 @@ def main():
 
     if len(listOfPossiblePlates) == 0:  # if no plates were found
         print("\nno license plates were detected\n")  # inform user no plates were found
+        return None
     else:  # else
         # if we get in here list of possible plates has at leat one plate
 
@@ -77,10 +65,8 @@ def main():
 
     cv2.waitKey(0)  # hold windows open until user presses a key
 
-    return
+    return imgOriginalScene
 
-
-# end main
 
 ###################################################################################################
 def drawRedRectangleAroundPlate(imgOriginalScene, licPlate):
@@ -142,7 +128,3 @@ def writeLicensePlateCharsOnImage(imgOriginalScene, licPlate):
 
 
 # end function
-
-###################################################################################################
-if __name__ == "__main__":
-    main()
