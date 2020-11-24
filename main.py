@@ -34,6 +34,8 @@ def main():
             print("NOT FOUND! Number_plate")
     _utils.show_img("result", img_result)
 
+def get_plate_main()
+
 
 if __name__ == "__main__":
     # execute only if run as a script
