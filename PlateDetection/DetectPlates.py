@@ -3,7 +3,7 @@
 import cv2
 import numpy as np
 import math
-from PlateDetection import PlateDetectionMain, Preprocess, DetectChars, PossiblePlate, PossibleChar
+from PlateDetection import PlateDetectionInObject, Preprocess, DetectChars, PossiblePlate, PossibleChar
 import random
 
 # module level variables ##########################################################################
@@ -42,7 +42,7 @@ def detectPlatesInScene(imgOriginalScene):
         # end if
     # end for
 
-    print("\n" + str(len(listOfPossiblePlates)) + " possible plates found")  # 13 with MCLRNF1 image
+    # print("\n" + str(len(listOfPossiblePlates)) + " possible plates found")  # 13 with MCLRNF1 image
 
     return listOfPossiblePlates
 

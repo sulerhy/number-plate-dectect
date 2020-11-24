@@ -1,10 +1,5 @@
 import cv2
-import imutils
-import pytesseract
-import _utils
-import numpy as np
-import CONST
-from PlateDetection import PlateDetectionMain
+from PlateDetection import PlateDetectionInObject
 
 """
 Processing to get number plate of parking lot
@@ -18,7 +13,7 @@ def get_cars(image):
     Objectness Detection by Saliency detection method
     :param image: The input image
     """
-    print("Start finding vehicles...")
+    print("Step1: Start finding vehicles...")
     # OpenCV's objectness saliency detector
     saliency = cv2.saliency.ObjectnessBING_create()
     # load trained model of OpenCV
@@ -31,5 +26,9 @@ def get_cars(image):
 
 
 def get_number_plate(car_bbox):
-    lic_plate = PlateDetectionMain.get_number_plate(car_bbox)
+    """
+    Get number plate in each proposed car object (car_bbox)
+    :param car_bbox: proposed car object
+    """
+    lic_plate = PlateDetectionInObject.get_number_plate(car_bbox)
     return lic_plate

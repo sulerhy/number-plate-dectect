@@ -1,4 +1,5 @@
 MAX_PROPOSED_OBJECTS = 5
+# TARGETED_OBJECT: the area that number_plate usually appear in car (here 60% = 0.6 from bottom to top)
 TARGETED_OBJECT = 0.6
 APRROX_POLY_DP = 0.01
 

@@ -6,7 +6,7 @@ import numpy as np
 import math
 import random
 
-from PlateDetection import PlateDetectionMain, Preprocess, PossibleChar
+from PlateDetection import PlateDetectionInObject, Preprocess, PossibleChar
 
 # module level variables ##########################################################################
 
@@ -345,7 +345,7 @@ def recognizeCharsInPlate(imgThresh, listOfMatchingChars):
         pt2 = ((currentChar.intBoundingRectX + currentChar.intBoundingRectWidth),
                (currentChar.intBoundingRectY + currentChar.intBoundingRectHeight))
 
-        cv2.rectangle(imgThreshColor, pt1, pt2, PlateDetectionMain.SCALAR_GREEN, 2)  # draw green box around the char
+        cv2.rectangle(imgThreshColor, pt1, pt2, PlateDetectionInObject.SCALAR_GREEN, 2)  # draw green box around the char
 
         # crop char out of threshold image
         imgROI = imgThresh[
@@ -368,7 +368,5 @@ def recognizeCharsInPlate(imgThresh, listOfMatchingChars):
 
         strChars = strChars + strCurrentChar  # append current char to full string
 
-
-    cv2.imshow("10", imgThreshColor)
 
     return strChars

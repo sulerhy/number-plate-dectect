@@ -1,4 +1,4 @@
-# PlateDetectionMain.py
+# PlateDetectionInObject.py
 
 import cv2
 import numpy as np
@@ -30,7 +30,7 @@ def get_number_plate(imgOriginalScene):
 
     listOfPossiblePlates = DetectChars.detectCharsInPlates(listOfPossiblePlates)  # detect chars in plates
 
-    _utils.show_img("imgOriginalScene", imgOriginalScene)  # show scene image
+    # _utils.show_img("imgOriginalScene", imgOriginalScene)  # show scene image
 
     if len(listOfPossiblePlates) == 0:  # if no plates were found
         print("\nno license plates were detected\n")  # inform user no plates were found
@@ -52,7 +52,7 @@ def get_number_plate(imgOriginalScene):
             return None
         # end if
 
-        _utils.show_img("imgPlate", licPlate.imgPlate)
+        # _utils.show_img("imgPlate", licPlate.imgPlate)
 
         return licPlate
 

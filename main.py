@@ -5,19 +5,40 @@ import _utils
 import processing
 import sys
 import CONST
-from PlateDetection import PlateDetectionMain
+from PlateDetection import PlateDetectionInObject
+import glob
 
 np.set_printoptions(threshold=sys.maxsize)
+root_folder = "/Users/sulerhy/Desktop/number-plate-dectect/"
 
 
 def main():
+    # get list input files
+    list_images = glob.glob(root_folder + "resources/input_images/" + "*.jpg")
+    for img_name in list_images:
+        # read image from input folder
+        img = cv2.imread(img_name)
+        result_img = print_bbox(img)
+        # debugging
+        # _utils.show_img("result", result_img)
+        # write image to output folder
+        output_name = img_name.replace("input_images", "output_images")
+        cv2.imwrite(output_name, result_img)
+
+
+def print_bbox(img):
+    """
+    print bbox of number plate on image
+    :param img:
+    :return: img_result
+    """
     detected_flag = False
     # load image
-    img = _utils.read_img("27.jpg")
     img_result = img.copy()
     # get salient objects from image
     salientObjects, cars_no = processing.get_cars(img)
     # loop over the detections
+    print("Step 2: take number plate on each car")
     for i in range(0, min(cars_no, CONST.MAX_PROPOSED_OBJECTS)):
         # get the bounding box coordinates
         (startX, startY, endX, endY) = salientObjects[i].flatten()
@@ -27,14 +48,12 @@ def main():
         number_plate = processing.get_number_plate(car_box)
         if number_plate is not None:
             detected_flag = True
-            PlateDetectionMain.drawRedRectangleAroundPlate(img_result, number_plate, offset=(startX, startY))
-
+            PlateDetectionInObject.drawRedRectangleAroundPlate(img_result, number_plate, offset=(startX, startY))
     if detected_flag:
         print("------- number plate FOUNDED ----------")
     else:
         print("------- number plate NOT FOUNDED ----------")
-
-    _utils.show_img("result", img_result)
+    return img_result
 
 
 if __name__ == "__main__":
