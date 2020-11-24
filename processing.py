@@ -35,21 +35,21 @@ def get_number_plate(car_bbox):
     :param car_bbox: input proposed cars (bounding box of the car)
     """
     print("Start getting car number plate...")
-    _utils.show_img("car_bbox", car_bbox)
+    # _utils.show_img("car_bbox", car_bbox)
     # gray scale
     gray = cv2.cvtColor(car_bbox, cv2.COLOR_BGR2GRAY)  # convert to grey scale
     gray = cv2.bilateralFilter(gray, 5, 35, 35)
     # get edged
     edged = cv2.Canny(gray, 30, 200)
-    _utils.show_img("edged", edged)
+    # _utils.show_img("edged", edged)
 
     # get contours
     contours = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours = imutils.grab_contours(contours)
     contours = sorted(contours, key=cv2.contourArea, reverse=True)[:CONST.MAX_TAKEN_CONTOUR]
     # debugging draw all contours
-    car_box_debugging = cv2.drawContours(car_bbox.copy(), contours, -1, CONST.CONTOUR_COLOR, CONST.CONTOUR_SIZE)
-    _utils.show_img("car_box_debugging", car_box_debugging)
+    # car_box_debugging = cv2.drawContours(car_bbox.copy(), contours, -1, CONST.CONTOUR_COLOR, CONST.CONTOUR_SIZE)
+    # _utils.show_img("car_box_debugging", car_box_debugging)
     rectangle_detected = None
     max_chars_len = 0
     for c in contours:
