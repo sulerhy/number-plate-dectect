@@ -11,7 +11,7 @@ np.set_printoptions(threshold=sys.maxsize)
 
 def main():
     # load image
-    img = _utils.read_img("9.jpg")
+    img = _utils.read_img("18.jpg")
     img_result = img.copy()
     # get salient objects from image
     salientObjects, cars_no = processing.get_cars(img)
