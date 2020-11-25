@@ -1,30 +1,21 @@
 # PlateDetectionInObject.py
 
 import cv2
-import numpy as np
-import os
 import operator
 import _utils
 
 
 from PlateDetection import DetectChars, DetectPlates, PossiblePlate
 
-# module level variables ##########################################################################
-SCALAR_BLACK = (0.0, 0.0, 0.0)
-SCALAR_WHITE = (255.0, 255.0, 255.0)
-SCALAR_YELLOW = (0.0, 255.0, 255.0)
 SCALAR_GREEN = (0.0, 255.0, 0.0)
-SCALAR_RED = (0.0, 0.0, 255.0)
 
 
-###################################################################################################
 def get_number_plate(imgOriginalScene):
     blnKNNTrainingSuccessful = DetectChars.loadKNNDataAndTrainKNN()  # attempt KNN training
 
     if not blnKNNTrainingSuccessful:  # if KNN training was not successful
         print("\nerror: KNN traning was not successful\n")  # show error message
-        return  # and exit program
-    # end if
+        return
 
     listOfPossiblePlates = DetectPlates.detectPlatesInScene(imgOriginalScene)  # detect plates
 
@@ -33,7 +24,7 @@ def get_number_plate(imgOriginalScene):
     # _utils.show_img("imgOriginalScene", imgOriginalScene)  # show scene image
 
     if len(listOfPossiblePlates) == 0:  # if no plates were found
-        print("\nno license plates were detected\n")  # inform user no plates were found
+        # print("\nno license plates were detected\n")  # inform user no plates were found
         return None
     else:
         # if we get in here list of possible plates has at leat one plate
@@ -50,17 +41,13 @@ def get_number_plate(imgOriginalScene):
         if len(licPlate.strChars) == 0:  # if no chars were found in the plate
             print("\nno characters were detected\n\n")  # show message
             return None
-        # end if
 
         # _utils.show_img("imgPlate", licPlate.imgPlate)
 
         return licPlate
 
 
-# end main
-
-###################################################################################################
-def drawRedRectangleAroundPlate(imgOriginalScene, licPlate, offset):
+def drawGreenRectangleAroundPlate(imgOriginalScene, licPlate, offset):
     p2fRectPoints = cv2.boxPoints(licPlate.rrLocationOfPlateInScene)  # get 4 vertices of rotated rect
     # number_plate coordinate + offset coordinate of car_bbox
     point_0 = tuple(p2fRectPoints[0])

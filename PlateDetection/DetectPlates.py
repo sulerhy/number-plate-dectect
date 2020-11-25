@@ -3,15 +3,12 @@
 import cv2
 import numpy as np
 import math
-from PlateDetection import PlateDetectionInObject, Preprocess, DetectChars, PossiblePlate, PossibleChar
-import random
+from PlateDetection import Preprocess, DetectChars, PossiblePlate, PossibleChar
 
-# module level variables ##########################################################################
 PLATE_WIDTH_PADDING_FACTOR = 1.3
 PLATE_HEIGHT_PADDING_FACTOR = 1.5
 
 
-###################################################################################################
 def detectPlatesInScene(imgOriginalScene):
     listOfPossiblePlates = []  # this will be the return value
 
@@ -39,17 +36,12 @@ def detectPlatesInScene(imgOriginalScene):
 
         if possiblePlate.imgPlate is not None:  # if plate was found
             listOfPossiblePlates.append(possiblePlate)  # add to list of possible plates
-        # end if
-    # end for
 
     # print("\n" + str(len(listOfPossiblePlates)) + " possible plates found")  # 13 with MCLRNF1 image
 
     return listOfPossiblePlates
 
 
-# end function
-
-###################################################################################################
 def findPossibleCharsInScene(imgThresh):
     listOfPossibleChars = []  # this will be the return value
 
@@ -71,16 +63,10 @@ def findPossibleCharsInScene(imgThresh):
                 possibleChar):  # if contour is a possible char, note this does not compare to other chars (yet) . . .
             intCountOfPossibleChars = intCountOfPossibleChars + 1  # increment count of possible chars
             listOfPossibleChars.append(possibleChar)  # and add to list of possible chars
-        # end if
-    # end for
 
     return listOfPossibleChars
 
 
-# end function
-
-
-###################################################################################################
 def extractPlate(imgOriginal, listOfMatchingChars):
     possiblePlate = PossiblePlate.PossiblePlate()  # this will be the return value
 
@@ -104,7 +90,6 @@ def extractPlate(imgOriginal, listOfMatchingChars):
 
     for matchingChar in listOfMatchingChars:
         intTotalOfCharHeights = intTotalOfCharHeights + matchingChar.intBoundingRectHeight
-    # end for
 
     fltAverageCharHeight = intTotalOfCharHeights / len(listOfMatchingChars)
 
@@ -135,4 +120,3 @@ def extractPlate(imgOriginal, listOfMatchingChars):
     possiblePlate.imgPlate = imgCropped  # copy the cropped plate image into the applicable member variable of the possible plate
 
     return possiblePlate
-# end function

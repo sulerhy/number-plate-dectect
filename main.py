@@ -48,7 +48,7 @@ def print_bbox(img):
         number_plate = processing.get_number_plate(car_box)
         if number_plate is not None:
             detected_flag = True
-            PlateDetectionInObject.drawRedRectangleAroundPlate(img_result, number_plate, offset=(startX, startY))
+            PlateDetectionInObject.drawGreenRectangleAroundPlate(img_result, number_plate, offset=(startX, startY))
     if detected_flag:
         print("------- number plate FOUNDED ----------")
     else:
