@@ -1,14 +1,12 @@
 # DetectChars.py
 import os
-
 import cv2
 import numpy as np
 import math
-import random
 
 from PlateDetection import PlateDetectionInObject, Preprocess, PossibleChar
 
-# module level variables ##########################################################################
+# module level variables
 
 kNearest = cv2.ml.KNearest_create()
 
@@ -41,7 +39,6 @@ RESIZED_CHAR_IMAGE_HEIGHT = 30
 MIN_CONTOUR_AREA = 100
 
 
-###################################################################################################
 def loadKNNDataAndTrainKNN():
     allContoursWithData = []  # declare empty lists,
     validContoursWithData = []  # we will fill these shortly
@@ -52,7 +49,6 @@ def loadKNNDataAndTrainKNN():
         print("error, unable to open classifications.txt, exiting program\n")  # show error message
         os.system("pause")
         return False  # and return False
-    # end try
 
     try:
         npaFlattenedImages = np.loadtxt("PlateDetection/flattened_images.txt", np.float32)  # read in training images
@@ -60,7 +56,6 @@ def loadKNNDataAndTrainKNN():
         print("error, unable to open flattened_images.txt, exiting program\n")  # show error message
         os.system("pause")
         return False  # and return False
-    # end try
 
     npaClassifications = npaClassifications.reshape(
         (npaClassifications.size, 1))  # reshape numpy array to 1d, necessary to pass to call to train
@@ -72,9 +67,6 @@ def loadKNNDataAndTrainKNN():
     return True  # if we got here training was successful so return true
 
 
-# end function
-
-###################################################################################################
 def detectCharsInPlates(listOfPossiblePlates):
     intPlateCounter = 0
     imgContours = None
@@ -82,7 +74,6 @@ def detectCharsInPlates(listOfPossiblePlates):
 
     if len(listOfPossiblePlates) == 0:  # if list of possible plates is empty
         return listOfPossiblePlates  # return
-    # end if
 
     # at this point we can be sure the list of possible plates has at least one plate
 
@@ -109,14 +100,12 @@ def detectCharsInPlates(listOfPossiblePlates):
 
             possiblePlate.strChars = ""
             continue  # go back to top of for loop
-        # end if
 
         for i in range(0, len(listOfListsOfMatchingCharsInPlate)):  # within each list of matching chars
             listOfListsOfMatchingCharsInPlate[i].sort(
                 key=lambda matchingChar: matchingChar.intCenterX)  # sort chars from left to right
             listOfListsOfMatchingCharsInPlate[i] = removeInnerOverlappingChars(
                 listOfListsOfMatchingCharsInPlate[i])  # and remove inner overlapping chars
-        # end for
 
         # within each possible plate, suppose the longest list of potential matching chars is the actual list of chars
         intLenOfLongestListOfChars = 0
@@ -127,22 +116,15 @@ def detectCharsInPlates(listOfPossiblePlates):
             if len(listOfListsOfMatchingCharsInPlate[i]) > intLenOfLongestListOfChars:
                 intLenOfLongestListOfChars = len(listOfListsOfMatchingCharsInPlate[i])
                 intIndexOfLongestListOfChars = i
-            # end if
-        # end for
 
         # suppose that the longest list of matching chars within the plate is the actual list of chars
         longestListOfMatchingCharsInPlate = listOfListsOfMatchingCharsInPlate[intIndexOfLongestListOfChars]
 
         possiblePlate.strChars = recognizeCharsInPlate(possiblePlate.imgThresh, longestListOfMatchingCharsInPlate)
 
-    # end of big for loop that takes up most of the function
-
     return listOfPossiblePlates
 
 
-# end function
-
-###################################################################################################
 def findPossibleCharsInPlate(imgGrayscale, imgThresh):
     listOfPossibleChars = []  # this will be the return value
     contours = []
@@ -161,7 +143,6 @@ def findPossibleCharsInPlate(imgGrayscale, imgThresh):
     return listOfPossibleChars
 
 
-###################################################################################################
 def checkIfPossibleChar(possibleChar):
     # this function is a 'first pass' that does a rough check on a contour to see if it could be a char,
     # note that we are not (yet) comparing the char to other chars to look for a group

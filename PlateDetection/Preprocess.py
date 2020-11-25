@@ -2,15 +2,13 @@
 
 import cv2
 import numpy as np
-import math
 
-# module level variables ##########################################################################
+# module level variables
 GAUSSIAN_SMOOTH_FILTER_SIZE = (5, 5)
 ADAPTIVE_THRESH_BLOCK_SIZE = 19
 ADAPTIVE_THRESH_WEIGHT = 9
 
 
-###################################################################################################
 def preprocess(imgOriginal):
     imgGrayscale = extractValue(imgOriginal)
 
@@ -28,9 +26,6 @@ def preprocess(imgOriginal):
     return imgGrayscale, imgThresh
 
 
-# end function
-
-###################################################################################################
 def extractValue(imgOriginal):
     height, width, numChannels = imgOriginal.shape
 
@@ -43,9 +38,6 @@ def extractValue(imgOriginal):
     return imgValue
 
 
-# end function
-
-###################################################################################################
 def maximizeContrast(imgGrayscale):
     height, width = imgGrayscale.shape
 
@@ -61,4 +53,3 @@ def maximizeContrast(imgGrayscale):
     imgGrayscalePlusTopHatMinusBlackHat = cv2.subtract(imgGrayscalePlusTopHat, imgBlackHat)
 
     return imgGrayscalePlusTopHatMinusBlackHat
-# end function

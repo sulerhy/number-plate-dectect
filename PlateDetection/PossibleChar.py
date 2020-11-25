@@ -1,14 +1,11 @@
 # PossibleChar.py
 
 import cv2
-import numpy as np
 import math
 
 
-###################################################################################################
 class PossibleChar:
 
-    # constructor #################################################################################
     def __init__(self, _contour):
         self.contour = _contour
 
