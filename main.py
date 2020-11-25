@@ -1,5 +1,4 @@
 import cv2
-import imutils
 import numpy as np
 import _utils
 import processing
@@ -9,20 +8,20 @@ from PlateDetection import PlateDetectionInObject
 import glob
 
 np.set_printoptions(threshold=sys.maxsize)
-root_folder = "/Users/sulerhy/Desktop/number-plate-dectect/"
 
 
 def main():
     # get list input files
-    list_images = glob.glob(root_folder + "resources/input_images/" + "*.jpg")
+    list_images = glob.glob(CONST.ROOT_FOLDER + CONST.INPUT_FOLDER + "*.jpg")
     for img_name in list_images:
+        print("\n\n\n################################################################")
         # read image from input folder
         img = cv2.imread(img_name)
         result_img = print_bbox(img)
         # debugging
         # _utils.show_img("result", result_img)
         # write image to output folder
-        output_name = img_name.replace("input_images", "output_images")
+        output_name = img_name.replace(CONST.INPUT_FOLDER, CONST.OUTPUT_FOLDER)
         cv2.imwrite(output_name, result_img)
 
 
