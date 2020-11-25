@@ -15,6 +15,7 @@ def main():
     list_images = glob.glob(CONST.ROOT_FOLDER + CONST.INPUT_FOLDER + "*.jpg")
     for img_name in list_images:
         print("\n\n\n################################################################")
+        print(img_name)
         # read image from input folder
         img = cv2.imread(img_name)
         result_img = print_bbox(img)
