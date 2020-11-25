@@ -3,8 +3,6 @@
 import cv2
 import operator
 import _utils
-
-
 from PlateDetection import DetectChars, DetectPlates, PossiblePlate
 
 SCALAR_GREEN = (0.0, 255.0, 0.0)
