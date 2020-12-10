@@ -9,11 +9,6 @@ SCALAR_GREEN = (0.0, 255.0, 0.0)
 
 
 def get_number_plate(imgOriginalScene):
-    blnKNNTrainingSuccessful = DetectChars.loadKNNDataAndTrainKNN()  # attempt KNN training
-
-    if not blnKNNTrainingSuccessful:  # if KNN training was not successful
-        print("\nerror: KNN traning was not successful\n")  # show error message
-        return
 
     listOfPossiblePlates = DetectPlates.detectPlatesInScene(imgOriginalScene)  # detect plates
 

@@ -44,7 +44,8 @@ def loadKNNDataAndTrainKNN():
     validContoursWithData = []  # we will fill these shortly
 
     try:
-        npaClassifications = np.loadtxt("PlateDetection/classifications.txt", np.float32)  # read in training classifications
+        npaClassifications = np.loadtxt("PlateDetection/classifications.txt",
+                                        np.float32)  # read in training classifications
     except:  # if file could not be opened
         print("error, unable to open classifications.txt, exiting program\n")  # show error message
         os.system("pause")
@@ -294,7 +295,8 @@ def recognizeCharsInPlate(imgThresh, listOfMatchingChars):
         pt2 = ((currentChar.intBoundingRectX + currentChar.intBoundingRectWidth),
                (currentChar.intBoundingRectY + currentChar.intBoundingRectHeight))
 
-        cv2.rectangle(imgThreshColor, pt1, pt2, PlateDetectionInObject.SCALAR_GREEN, 2)  # draw green box around the char
+        cv2.rectangle(imgThreshColor, pt1, pt2, PlateDetectionInObject.SCALAR_GREEN,
+                      2)  # draw green box around the char
 
         # crop char out of threshold image
         imgROI = imgThresh[
